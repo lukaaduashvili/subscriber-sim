@@ -2,7 +2,6 @@ from observer_interfaces import Observer, Subject
 
 
 class User(Observer):
-
     def __init__(self, name: str) -> None:
         self._name = name
 

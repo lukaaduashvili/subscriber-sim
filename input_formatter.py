@@ -1,9 +1,9 @@
+import re
 from typing import List
 
+import subscriber_db
 from channel import Channel
 from singleton import Singleton
-import re
-import subscriber_db
 
 
 class InputFormatter(metaclass=Singleton):
@@ -32,7 +32,7 @@ class InputFormatter(metaclass=Singleton):
         elif re.match("publish", inpt):
             ss = re.findall(self._pattern, inpt)
             if len(ss) == 1:
-                name: str = ss[0][1:len(ss[0]) - 1]
+                name: str = ss[0][1 : len(ss[0]) - 1]
                 channel = Channel(name)
                 channel.publish_video()
             else:
@@ -41,6 +41,6 @@ class InputFormatter(metaclass=Singleton):
             print("Incorrect input")
 
     def _sub_to_channel(self, ls: List[str]) -> None:
-        user_name: str = ls[0][1:len(ls[0]) - 1]
-        channel_name: str = ls[1][1:len(ls[1]) - 1]
+        user_name: str = ls[0][1 : len(ls[0]) - 1]
+        channel_name: str = ls[1][1 : len(ls[1]) - 1]
         self._fileDb.subscribe_to_channel(user_name, channel_name)

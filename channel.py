@@ -1,11 +1,10 @@
 from typing import List
 
-from observer_interfaces import Subject, Observer
+from observer_interfaces import Observer, Subject
 from subscriber_db import FileDb
 
 
 class Channel(Subject):
-
     def __init__(self, name: str) -> None:
         self._subscribers: List[Observer] = []
         self._fileDb = FileDb()
