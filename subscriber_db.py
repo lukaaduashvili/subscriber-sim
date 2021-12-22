@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from typing import List
 
-from channel import Channel
 from singleton import Singleton
 from user import User
 
@@ -19,18 +18,10 @@ class DbInterface:
     def get_subscribers(self, channel_name: str) -> List[User]:
         pass
 
-    @abstractmethod
-    def get_channels(self) -> List[Channel]:
-        pass
-
 
 class FileDb(DbInterface, metaclass=Singleton):
-    _channels: List[Channel] = []
 
     _file: str = "text_db.txt"
-
-    def get_channels(self) -> List[Channel]:
-        return self._channels
 
     def subscribe_to_channel(self, user_name: str, channel_name: str) -> None:
         with open(self._file, "r+") as file:
@@ -42,9 +33,7 @@ class FileDb(DbInterface, metaclass=Singleton):
                     return
             file.seek(0, 2)
             file.write("{}.{}\n".format(channel_name, user_name))
-            
-    def update_channel(self, channel_name) -> str:
-        pass
+            print("{} subscribed to {}".format(user_name, channel_name))
 
     def unsubscribe_from_channel(self, user_name: str, channel_name: str) -> None:
         with open(self._file, "r+") as file:

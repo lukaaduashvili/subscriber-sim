@@ -1,13 +1,14 @@
 from typing import List
 
 from observer_interfaces import Subject, Observer
+from subscriber_db import FileDb
 
 
 class Channel(Subject):
 
-    _subscribers: List[Observer] = []
-
     def __init__(self, name: str) -> None:
+        self._subscribers: List[Observer] = []
+        self._fileDb = FileDb()
         self._name = name
 
     def get_name(self) -> str:
@@ -22,3 +23,10 @@ class Channel(Subject):
     def notify(self) -> None:
         for observer in self._subscribers:
             observer.update(self)
+
+    def publish_video(self) -> None:
+        subs = self._fileDb.get_subscribers(self.get_name())
+        for sub in subs:
+            self.attach(sub)
+        print(f"Notifying subscribers of {self.get_name()}")
+        self.notify()

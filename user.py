@@ -10,4 +10,4 @@ class User(Observer):
         return self._name
 
     def update(self, subject: Subject) -> None:
-        pass
+        print(self.get_name())
