@@ -19,10 +19,10 @@ class InputFormatter(metaclass=Singleton):
         inp: str = input("Enter Exit to quit:")
         if inp == "Exit":
             return False
-        self._process_console_input(inp)
+        self.process_console_input(inp)
         return True
 
-    def _process_console_input(self, inpt: str) -> None:
+    def process_console_input(self, inpt: str) -> None:
         if re.match("subscribe", inpt):
             ss = re.findall(self._pattern, inpt)
             if len(ss) == 2:
